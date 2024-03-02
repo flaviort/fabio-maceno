@@ -1,0 +1,223 @@
+---
+import { Image } from 'astro:assets'
+
+// components
+import Layout from '../layouts/Layout.astro'
+
+// images
+import fabio from '../img/fabio.jpg'
+
+---
+
+<Layout
+	title='Fábio Maceno'
+	description='This design has always existed. We just discovered it.'
+	page_class='home'
+>
+	<section class='loading no-space'>
+		<p style='display: flex'>Hello</p>
+		<p>Bonjour</p>
+		<p>स्वागत हे</p>
+		<p>Ciao</p>
+		<p>おい</p>
+		<p>Hallå</p>
+		<p>Guten tag</p>
+		<p>Hallo</p>
+		<p>Olá</p>
+	</section>
+
+	<section class='no-space'>
+
+		<div class='text-bg'>
+			{Array(4).fill().map((_, index) => (
+				<div key={index} class='marquee'>
+					<h1>Fábio Maceno&nbsp;</h1>
+				</div>
+			))}			
+		</div>
+
+		<div class='portfolio magnetic'>
+			<a href='#' class='hover-underline'>
+				View Portfolio
+			</a>
+		</div>
+
+		<div class='container container-big relative z2'>
+			<div class='full-height'>
+
+				<div class='top-left'>
+					<p>
+						Curitiba — Braszil [&lt;o&gt;]<br />
+						<a href='mailto:info@fabiomaceno.com.br' class='hover-underline'>info@fabiomaceno.com.br</a><br />
+						<a href='tel:+55-41-99556-7946' class='hover-underline'>55 41 9 9556 7946</a>
+					</p>
+				</div>
+
+				<div class='bottom-right'>
+					<p>
+						This design has always existed.<br />
+						We just discovered it.
+					</p>
+				</div>
+
+				<div class='bg'>
+					<Image src={fabio} alt='Fábio Maceno' />
+				</div>
+
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style lang='scss'>
+	.loading {
+		position: fixed;
+		z-index: 9;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: $black;
+
+		p {
+			display: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: $black;
+			color: $white;
+			align-items: center;
+			justify-content: center;
+			font-size: 10vw;
+
+			@media #{$mq-md-min} {
+				font-size: 5vw;
+			}
+		}
+	}
+
+	.text-bg {
+		position: absolute;
+		z-index: 3;
+		top: 47%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+		white-space: nowrap;
+		color: $white;
+		font-size: 14.9vw;
+		display: flex;
+		pointer-events: none;
+
+		@media #{$mq-md-min} {
+			top: 50%;
+			z-index: 0;
+			font-size: 15vw;
+		}
+	}
+
+	.portfolio {
+		position: absolute;
+		z-index: 5;
+		top: 56%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: block;
+		background-color: transparentize($white, .75);
+		backdrop-filter: blur(1rem);
+		color: $white;
+		padding: .5rem 1rem;
+		white-space: nowrap;
+		border-radius: .125rem;
+
+		@media #{$mq-md-min} {
+			top: 50%;
+		}
+	}
+
+	.full-height {
+		position: relative;
+		height: 100svh;
+
+		.top-left {
+			position: absolute;
+			z-index: 2;
+			top: 1rem;
+			left: 0;
+
+			@media #{$mq-sm-min} {
+				top: 2rem;
+			}
+		}
+
+		.bottom-right {
+			position: absolute;
+			z-index: 1;
+			bottom: 1rem;
+			right: 0;
+			text-align: right;
+
+			@media #{$mq-sm-min} {
+				bottom: 2rem;
+			}
+		}
+
+		.bg {
+			position: absolute;
+			z-index: 0;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+
+			img {
+				max-width: none;
+				width: 87.5vw;
+				height: auto;
+
+				@media #{$mq-md-min} {
+					height: 80vh;
+					width: auto;
+					object-fit: contain;
+					max-width: 100%;
+				}
+			}
+		}
+	}
+</style>
+
+<script>
+	import { gsap } from 'gsap'
+
+	const tl = gsap.timeline({
+		delay: .5
+	})
+
+	tl.to('.loading p', { 
+		display: 'flex',
+		duration: 1,
+		stagger: .25
+	})
+
+	tl.to('.loading', {
+		autoAlpha: 0
+	})
+
+	document.fonts.ready.then(() => {
+
+		const timeline = gsap.timeline({
+			repeat: -1
+		})
+
+		const duration = window.innerWidth < 768 ? 10 : 20
+
+		timeline.to('.marquee', {
+			x: `-${window.innerWidth}px`,
+			duration: duration,
+			ease: 'none'
+		})
+
+	})
+
+</script>
