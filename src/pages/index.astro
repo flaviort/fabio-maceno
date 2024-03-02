@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets'
+import { Icon } from 'astro-icon/components'
 
 // components
 import Layout from '../layouts/Layout.astro'
@@ -36,8 +37,9 @@ import fabio from '../img/fabio.jpg'
 			))}			
 		</div>
 
-		<div class='portfolio magnetic'>
-			<a href='#' class='hover-underline'>
+		<div class='portfolio'>
+			<a href='/downloads/portfolio.pdf' target='_blank' class='hover-underline'>
+				<Icon name='ux/pdf' />
 				View Portfolio
 			</a>
 		</div>
@@ -134,6 +136,19 @@ import fabio from '../img/fabio.jpg'
 
 		@media #{$mq-md-min} {
 			top: 50%;
+		}
+
+		a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: .5rem;
+
+			svg {
+				width: 1rem;
+				min-width: 1rem;
+				height: 1rem;
+			}
 		}
 	}
 
